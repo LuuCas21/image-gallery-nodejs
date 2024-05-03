@@ -74,4 +74,17 @@ const uploadImageServer = async (req, res) => {
     }
 };
 
-module.exports = { getAllImages, uploadImageServer, uploadDirDB };
+const deleteImage = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await GalleryModel.findByIdAndDelete(id);
+        res.status(StatusCodes.OK).json({
+            status: 'success',
+            message: 'image deleted'
+        });
+    } catch(err) {
+        console.log(err);
+    }
+}
+
+module.exports = { getAllImages, uploadImageServer, uploadDirDB, deleteImage };
